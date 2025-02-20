@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="relative text-black inline-flex h-full leading-none gap-0.5 flex-row p-1 items-center bg-white dark:bg-black border-neutral-200 dark:border-neutral-800">
-      <button class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" id="radix-:r3:" aria-haspopup="menu" aria-expanded="false" data-state="closed" @click="toggleHierarchyDropdown" ref="hierarchyButton">
+      <button class="group btnBase" type="button" id="radix-:r3:" aria-haspopup="menu" aria-expanded="false" data-state="closed" @click="toggleHierarchyDropdown" ref="hierarchyButton">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pilcrow w-4 h-4">
           <path d="M13 4v16"></path>
           <path d="M17 4v16"></path>
@@ -11,7 +11,7 @@
       <div v-if="isHierarchyDropdownOpen" data-radix-popper-content-wrapper="" dir="ltr" :style="{ position: 'absolute', left: 0, top: '3rem', minWidth: 'max-content', '--radix-popper-transform-origin': '50% 0px', zIndex: '40' }">
         <div class="flex flex-col gap-1 px-2 py-4 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800" data-side="bottom" data-align="center" role="menu" aria-orientation="vertical" data-state="open" data-radix-menu-content="" dir="ltr" id="radix-:r4:" aria-labelledby="radix-:r3:" tabindex="-1" data-orientation="vertical" style="outline: none">
           <div class="mt-2 first:mt-0"><div class="text-[.65rem] font-semibold mb-1 uppercase text-neutral-500 dark:text-neutral-400 px-1.5">Hierarchy</div></div>
-          <button @click="setParagraph" :class="getClass('paragraph')" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200">
+          <button @click="setParagraph" :class="['dropdownBtn', getClass('paragraph')]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pilcrow w-4 h-4 mr-1">
               <path d="M13 4v16"></path>
               <path d="M17 4v16"></path>
@@ -19,7 +19,7 @@
             </svg>
             Paragraph
           </button>
-          <button @click="setHeading(1)" :class="getClass('heading', { level: 1 })" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200">
+          <button @click="setHeading(1)" :class="['dropdownBtn', getClass('heading', { level: 1 })]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading1 w-4 h-4 mr-1">
               <path d="M4 12h8"></path>
               <path d="M4 18V6"></path>
@@ -28,7 +28,7 @@
             </svg>
             Heading 1
           </button>
-          <button @click="setHeading(2)" :class="getClass('heading', { level: 2 })" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200">
+          <button @click="setHeading(2)" :class="['dropdownBtn', getClass('heading', { level: 2 })]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading2 w-4 h-4 mr-1">
               <path d="M4 12h8"></path>
               <path d="M4 18V6"></path>
@@ -37,7 +37,7 @@
             </svg>
             Heading 2
           </button>
-          <button @click="setHeading(3)" :class="getClass('heading', { level: 3 })" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200">
+          <button @click="setHeading(3)" :class="['dropdownBtn', getClass('heading', { level: 3 })]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heading3 w-4 h-4 mr-1">
               <path d="M4 12h8"></path>
               <path d="M4 18V6"></path>
@@ -48,7 +48,7 @@
             Heading 3
           </button>
           <div class="mt-2 first:mt-0"><div class="text-[.65rem] font-semibold mb-1 uppercase text-neutral-500 dark:text-neutral-400 px-1.5">Lists</div></div>
-          <button @click="toggleBulletList" :class="getClass('bulletList')" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200">
+          <button @click="toggleBulletList" :class="['dropdownBtn', getClass('bulletList')]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list w-4 h-4 mr-1">
               <path d="M3 12h.01"></path>
               <path d="M3 18h.01"></path>
@@ -59,7 +59,7 @@
             </svg>
             Bullet list
           </button>
-          <button @click="toggleOrderedList" :class="getClass('orderedList')" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200">
+          <button @click="toggleOrderedList" :class="['dropdownBtn', getClass('orderedList')]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-ordered w-4 h-4 mr-1">
               <path d="M10 12h11"></path>
               <path d="M10 18h11"></path>
@@ -72,7 +72,7 @@
           </button>
         </div>
       </div>
-      <button class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" id="radix-:r5:" aria-haspopup="menu" aria-expanded="false" data-state="closed" @click="setFontFamily('Inter')">
+      <button class="group btnBase" type="button" id="radix-:r5:" aria-haspopup="menu" aria-expanded="false" data-state="closed" @click="setFontFamily('Inter')">
         <span style="vertical-align: inherit">{{ editor.getAttributes('textStyle').fontFamily??'Ninguno' }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-2 h-2"><path d="m6 9 6 6 6-6"></path></svg>
       </button>
@@ -80,37 +80,37 @@
         <div class="flex flex-col gap-1 px-2 py-4 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800" data-side="bottom" data-align="center" role="menu" aria-orientation="vertical" data-state="open" data-radix-menu-content="" dir="ltr" id="radix-:r6:" aria-labelledby="radix-:r5:" tabindex="-1" data-orientation="vertical" style="outline: none; --radix-dropdown-menu-content-transform-origin: var(--radix-popper-transform-origin); --radix-dropdown-menu-content-available-width: var(--radix-popper-available-width); --radix-dropdown-menu-content-available-height: var(--radix-popper-available-height); --radix-dropdown-menu-trigger-width: var(--radix-popper-anchor-width); --radix-dropdown-menu-trigger-height: var(--radix-popper-anchor-height); pointer-events: auto">
           <div class="mt-2.5 first:mt-0 gap-0.5 flex flex-col">
             <div class="text-[.65rem] font-semibold mb-1 uppercase text-neutral-500 dark:text-neutral-400 px-1.5">Sans Serif</div>
-            <button @click="editor.chain().focus().setFontFamily('Inter').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Inter' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span>Inter</span></button>
-            <button @click="editor.chain().focus().setFontFamily('Arial').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Arial' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: Arial">Arial</span></button>
-            <button @click="editor.chain().focus().setFontFamily('Helvetica').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Helvetica' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: Helvetica">Helvetica</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Inter').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Inter' })]"><span>Inter</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Arial').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Arial' })]"><span style="font-family: Arial">Arial</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Helvetica').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Arial' })]"><span style="font-family: Helvetica">Helvetica</span></button>
           </div>
           <div class="mt-2.5 first:mt-0 gap-0.5 flex flex-col">
             <div class="text-[.65rem] font-semibold mb-1 uppercase text-neutral-500 dark:text-neutral-400 px-1.5">Serif</div>
-            <button @click="editor.chain().focus().setFontFamily('Times New Roman').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Times New Roman' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: Times">Times New Roman</span></button>
-            <button @click="editor.chain().focus().setFontFamily('Garamond').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Garamond' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: Garamond">Garamond</span></button>
-            <button @click="editor.chain().focus().setFontFamily('Georgia').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Georgia' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: Georgia">Georgia</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Times New Roman').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Times New Roman' })]"><span style="font-family: Times">Times New Roman</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Garamond').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Garamond' })]"><span style="font-family: Garamond">Garamond</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Georgia').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Georgia' })]"><span style="font-family: Georgia">Georgia</span></button>
           </div>
           <div class="mt-2.5 first:mt-0 gap-0.5 flex flex-col">
             <div class="text-[.65rem] font-semibold mb-1 uppercase text-neutral-500 dark:text-neutral-400 px-1.5">Monospace</div>
-            <button @click="editor.chain().focus().setFontFamily('Courier').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Courier' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: Courier">Courier</span></button>
-            <button @click="editor.chain().focus().setFontFamily('Courier New').run()" :class="{ 'is-active': editor.isActive('textStyle', { fontFamily: 'Courier New' }) }" class="flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200"><span style="font-family: 'Courier New'">Courier New</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Courier').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Courier' })]"><span style="font-family: Courier">Courier</span></button>
+            <button @click="editor.chain().focus().setFontFamily('Courier New').run()" :class="['dropdownBtn', getClass('textStyle', { fontFamily: 'Courier New' })]"><span style="font-family: 'Courier New'">Courier New</span></button>
           </div>
         </div>
       </div>
-      <button class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" id="radix-:r7:" aria-haspopup="menu" aria-expanded="false" data-state="closed" @click="setFontWeight('medium')">
+      <button class="group btnBase" type="button" id="radix-:r7:" aria-haspopup="menu" aria-expanded="false" data-state="closed" @click="setFontWeight('medium')">
         <span style="vertical-align: inherit">Medium</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-2 h-2"><path d="m6 9 6 6 6-6"></path></svg>
       </button>
       <div class="bg-neutral-200 dark:bg-neutral-800 h-full min-h-[1.5rem] w-[1px] mx-1 first:ml-0 last:mr-0"></div>
       <span>
-        <button @click="editor.chain().focus().toggleBold().run()" :class="getClass('bold')" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+        <button @click="editor.chain().focus().toggleBold().run()" :class="getClass('bold')" class="group btnBase">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bold w-4 h-4">
             <path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"></path>
           </svg>
         </button>
       </span>
       <span>
-        <button @click="editor.chain().focus().toggleItalic().run()" :class="getClass('italic')" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+        <button @click="editor.chain().focus().toggleItalic().run()" :class="getClass('italic')" class="group btnBase">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-italic w-4 h-4">
             <line x1="19" x2="10" y1="4" y2="4"></line>
             <line x1="14" x2="5" y1="20" y2="20"></line>
@@ -119,7 +119,7 @@
         </button>
       </span>
       <span>
-        <button @click="editor.chain().focus().toggleUnderline().run()" :class="getClass('underline')" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+        <button @click="editor.chain().focus().toggleUnderline().run()" :class="getClass('underline')" class="group btnBase">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-underline w-4 h-4">
             <path d="M6 4v6a6 6 0 0 0 12 0V4"></path>
             <line x1="4" x2="20" y1="20" y2="20"></line>
@@ -127,7 +127,7 @@
         </button>
       </span>
       <span>
-        <button @click="editor.chain().focus().toggleStrike().run()" :class="getClass('strike')" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+        <button @click="editor.chain().focus().toggleStrike().run()" :class="getClass('strike')" class="group btnBase">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-strikethrough w-4 h-4">
             <path d="M16 4H9a3 3 0 0 0-2.83 4"></path>
             <path d="M14 12a4 4 0 0 1 0 8H6"></path>
@@ -136,7 +136,7 @@
         </button>
       </span>
       <span>
-        <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="getClass('codeBlock')" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+        <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="getClass('codeBlock')" class="group btnBase">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code w-4 h-4">
             <polyline points="16 18 22 12 16 6"></polyline>
             <polyline points="8 6 2 12 8 18"></polyline>
@@ -144,7 +144,7 @@
         </button>
       </span>
       <span>
-        <button @click="editor.chain().focus().toggleCodeBlock().run()" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+        <button @click="editor.chain().focus().toggleCodeBlock().run()" class="group btnBase">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code w-4 h-4">
             <path d="M10 12.5 8 15l2 2.5"></path>
             <path d="m14 12.5 2 2.5-2 2.5"></path>
@@ -154,7 +154,7 @@
         </button>
       </span>
       <span>
-        <button @click="insertLink()" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r9:" data-state="closed">
+        <button @click="insertLink()" class="group btnBase" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r9:" data-state="closed">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link w-4 h-4">
             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
             <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
@@ -162,7 +162,7 @@
         </button>
       </span>
       <span>
-        <button @click="toggleHighlight()" :class="getClass('highlight')" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:ra:" data-state="closed">
+        <button @click="toggleHighlight()" :class="getClass('highlight')" class="group btnBase" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:ra:" data-state="closed">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-highlighter w-4 h-4">
             <path d="m9 11-6 6v3h9l3-3"></path>
             <path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"></path>
@@ -170,7 +170,7 @@
         </button>
       </span>
       <span>
-        <button @click="toggleColorPalette" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rb:" data-state="closed">
+        <button @click="toggleColorPalette" class="group btnBase" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rb:" data-state="closed">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette w-4 h-4">
             <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
             <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
@@ -191,7 +191,7 @@
             <button class="flex items-center justify-center px-1.5 py-1.5 rounded group hover:bg-neutral-100"><div class="w-4 h-4 rounded bg-slate-100 shadow-sm ring-offset-2 ring-current hover:ring-1" style="background-color: rgb(165, 243, 252); color: rgb(165, 243, 252)"></div></button>
             <button class="flex items-center justify-center px-1.5 py-1.5 rounded group hover:bg-neutral-100"><div class="w-4 h-4 rounded bg-slate-100 shadow-sm ring-offset-2 ring-current hover:ring-1" style="background-color: rgb(165, 180, 252); color: rgb(165, 180, 252)"></div></button>
             <span>
-              <button class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-undo w-4 h-4">
                   <path d="M3 7v6h6"></path>
                   <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path>
@@ -202,7 +202,7 @@
         </div>
       </div>
       <span>
-        <button @click="toggleEllipsisDropdown" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rc:" data-state="closed" ref="ellipsisButton">
+        <button @click="toggleEllipsisDropdown" class="group btnBase" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rc:" data-state="closed" ref="ellipsisButton">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical w-4 h-4">
             <circle cx="12" cy="12" r="1"></circle>
             <circle cx="12" cy="5" r="1"></circle>
@@ -212,7 +212,7 @@
         <div v-if="isEllipsisDropdownOpen" data-radix-popper-content-wrapper="" :style="{ position: 'absolute', right: 0, top: '3rem', minWidth: 'max-content', '--radix-popper-transform-origin': '50% 42px', 'z-index': '40' }">
           <div class="text-black inline-flex h-full leading-none gap-0.5 flex-row p-1 items-center bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800" data-side="top" data-align="center" data-state="open" role="dialog" id="radix-:rc:" tabindex="-1" style="">
             <span>
-              <button @click="editor.chain().focus().toggleSubscript().run()" :class="{ 'is-active': editor.isActive('subscript') }" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button @click="editor.chain().focus().toggleSubscript().run()" :class="{ 'is-active': editor.isActive('subscript') }" class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-subscript w-4 h-4">
                   <path d="m4 5 8 8"></path>
                   <path d="m12 5-8 8"></path>
@@ -221,7 +221,7 @@
               </button>
             </span>
             <span>
-              <button @click="editor.chain().focus().toggleSuperscript().run()" :class="{ 'is-active': editor.isActive('superscript') }" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button @click="editor.chain().focus().toggleSuperscript().run()" :class="{ 'is-active': editor.isActive('superscript') }" class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-superscript w-4 h-4">
                   <path d="m4 19 8-8"></path>
                   <path d="m12 19-8-8"></path>
@@ -231,7 +231,7 @@
             </span>
             <div class="bg-neutral-200 dark:bg-neutral-800 h-full min-h-[1.5rem] w-[1px] mx-1 first:ml-0 last:mr-0"></div>
             <span>
-              <button @click="editor.chain().focus().setTextAlign('left').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button @click="editor.chain().focus().setTextAlign('left').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-left w-4 h-4">
                   <path d="M15 12H3"></path>
                   <path d="M17 18H3"></path>
@@ -240,7 +240,7 @@
               </button>
             </span>
             <span>
-              <button @click="editor.chain().focus().setTextAlign('center').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button @click="editor.chain().focus().setTextAlign('center').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }" class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-center w-4 h-4">
                   <path d="M17 12H7"></path>
                   <path d="M19 18H5"></path>
@@ -249,7 +249,7 @@
               </button>
             </span>
             <span>
-              <button @click="editor.chain().focus().setTextAlign('right').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button @click="editor.chain().focus().setTextAlign('right').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }" class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-right w-4 h-4">
                   <path d="M21 12H9"></path>
                   <path d="M21 18H7"></path>
@@ -258,7 +258,7 @@
               </button>
             </span>
             <span>
-              <button @click="editor.chain().focus().setTextAlign('justify').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }" class="flex group items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto">
+              <button @click="editor.chain().focus().setTextAlign('justify').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }" class="group btnBase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-justify w-4 h-4">
                   <path d="M3 12h18"></path>
                   <path d="M3 18h18"></path>
@@ -419,5 +419,12 @@ button.is-active {
     background-color: #373737;
     color: white;
   }
+}
+.btnBase {
+  @apply flex items-center justify-center border text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap bg-transparent border-transparent text-neutral-500 dark:text-neutral-400 hover:bg-black/5 hover:text-neutral-700 active:bg-black/10 active:text-neutral-800 dark:hover:bg-white/10 dark:hover:text-neutral-300 dark:active:text-neutral-200 h-8 gap-1 min-w-[2rem] px-2 w-auto;
+}
+
+.dropdownBtn {
+  @apply flex items-center gap-2 p-1.5 text-sm font-medium text-neutral-500 dark:text-neutral-400 text-left bg-transparent w-full rounded hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-neutral-200;
 }
 </style>
